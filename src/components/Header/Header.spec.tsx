@@ -1,4 +1,4 @@
-import { describe, it } from "vitest";
+import { describe, it, vi } from "vitest";
 import { Header } from ".";
 import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -24,4 +24,19 @@ describe("Header component", () => {
       expect(inputElement).toHaveAttribute("value", "Pikachu");
     });
   });
+
+  it("Should be able to function of search Pokemon works", async() =>{
+    const handleFilter = vi.fn();
+    const {getByText, getByPlaceholderText} = render(<Header handleFilterPokemons={handleFilter} />);
+    const inputElement = getByPlaceholderText("Ex:. Pikachu, Bulbasaur");
+    const buttonElement = getByText("Search");
+
+    userEvent.type(inputElement, "Pikachu");
+    userEvent.click(buttonElement);
+
+    await waitFor(() =>{
+      expect(handleFilter).toHaveBeenCalledTimes(1);
+    }); 
+  });
+
 });
