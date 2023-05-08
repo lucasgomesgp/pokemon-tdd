@@ -1,7 +1,7 @@
 import { describe, it } from "vitest";
-import "@testing-library/jest-dom";
 import { render } from "@testing-library/react";
 import { Card } from ".";
+import "@testing-library/jest-dom";
 
 describe("Card", () => {
   it("Should be able to show title and type of Pokemons", () => {
