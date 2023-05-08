@@ -10,4 +10,10 @@ export interface PokemonInfo {
   sprites: {
     front_default: string;
   };
+  types: Array<{
+    type: {
+      name: string,
+      url: string,
+    }
+  }>
 }
