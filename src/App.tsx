@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Header } from "./components/Header";
 import { InfoPokemons, PokemonInfo } from "./types";
 import { InfoArea } from "./components/InfoArea";
@@ -10,6 +10,7 @@ function App() {
   const [pokemons, setPokemons] = useState<Array<PokemonInfo>>([]);
   const [pokemonsCopy, setPokemonsCopy] = useState<Array<PokemonInfo>>([]);
   const [pokemonSearch, setPokemonSearch] = useState("");
+  const [notFound, setNotFound] = useState(false);
   const infoPokemon = ["Strength", "Speed", "Weight", "Skill"];
 
   async function getAllPokemons(limit: string, offset: string) {
@@ -17,7 +18,7 @@ function App() {
       const baseURL = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
       const result = await fetch(baseURL);
       const pokemons = (await result.json()) as InfoPokemons;
-
+      setNotFound(false);
       const allInfoOfEachPokemon = pokemons.results.map(async (pokemon) => {
         const data = await fetch(pokemon.url);
         const response = await data.json();
@@ -36,6 +37,9 @@ function App() {
       pokemon.name.includes(pokemonSearch)
     );
     setPokemons(allPokemons);
+    if (allPokemons.length === 0) {
+      setNotFound(true);
+    }
     if (pokemonSearch === "") {
       setPokemons(pokemonsCopy);
     }
@@ -160,6 +164,16 @@ function App() {
               </div>
             </div>
           ))}
+          {notFound && pokemons.length <1 && (
+            <div className="flex flex-col items-center justify-center">
+              <p>Infelizmente seu Pokemon não foi encontrado</p>
+              <img
+                src="/empty.svg"
+                alt="Empty data"
+                className="max-w-xl mt-2"
+              />
+            </div>
+          )}
         </div>
       </div>
     </PokemonContext.Provider>
