@@ -11,11 +11,11 @@ describe("Card", () => {
       <Card
         title="Pikachu"
         type="Eletric"
-        skill={10}
-        speed={100}
-        strength={10}
+        skill={"10"}
+        speed={"100"}
+        strength={"10"}
         url={url}
-        weight={10}
+        weight={"10"}
       />
     );
     const imgPokemon = getByTestId("img-pokemon");

@@ -1,9 +1,6 @@
-export interface CardProps{
-    url: string;
-    title: string;
-    type: string;
-    strength: number;
-    speed: number;
-    weight: number;
-    skill: number;
+export interface CardProps {
+  id: string;
+  url: string;
+  title: string;
+  type: string;
 }

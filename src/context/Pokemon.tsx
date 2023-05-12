@@ -1,7 +1,15 @@
-import { createContext } from "react";
+import { createContext, Dispatch, SetStateAction } from "react";
 
-interface IPokemonContext{
-    pokemon: string,
-    setPokemon: React.Dispatch<React.SetStateAction<string>>;
+interface IPokemonContext {
+  pokemonSearched: string;
+  setPokemonSearched: (value: SetStateAction<string>) => void;
 }
-export const PokemonContext = createContext({} as IPokemonContext);
+
+const defaultState = {
+  pokemonSearched: "",
+  setPokemonSearched: (pokemonSearched: string) => {},
+} as IPokemonContext;
+
+export const PokemonSearchedContext = createContext<IPokemonContext>(
+  {} as IPokemonContext
+);

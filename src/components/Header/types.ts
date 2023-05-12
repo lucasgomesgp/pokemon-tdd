@@ -1,3 +1,3 @@
 export interface HeaderProps{
-    handleFilterPokemons: () => void;
+    handleFilterPokemons: (value: string) => void;
 }

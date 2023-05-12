@@ -1,13 +1,13 @@
 import { MagnifyingGlass } from "@phosphor-icons/react";
-import { useContext, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { HeaderProps } from "./types";
-import { PokemonContext } from "../../context/Pokemon";
 
 export function Header({ handleFilterPokemons }: HeaderProps) {
-  const { pokemon, setPokemon } = useContext(PokemonContext);
+ 
+  const [pokemon, setPokemon] = useState("");
 
   useEffect(() => {
-    handleFilterPokemons();
+    handleFilterPokemons(pokemon);
   }, [pokemon]);
   return (
     <header className="flex justify-between items-center py-2 px-4 bg-red-600">
@@ -20,7 +20,7 @@ export function Header({ handleFilterPokemons }: HeaderProps) {
             value={pokemon}
             className="p-2 px-8 outline-none rounded-sm font-poppins w-64"
             onChange={(event) => {
-              setPokemon(event.target.value);
+              setPokemon(event.target.value)
             }}
           />
           <MagnifyingGlass
@@ -31,7 +31,7 @@ export function Header({ handleFilterPokemons }: HeaderProps) {
         </div>
         <button
           className="bg-green-500 text-white p-2 rounded-3xl font-bold px-4"
-          onClick={handleFilterPokemons}
+          onClick={() => {handleFilterPokemons(pokemon)}}
         >
           Search
         </button>
