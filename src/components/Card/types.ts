@@ -2,5 +2,10 @@ export interface CardProps {
   id: string;
   url: string;
   title: string;
-  type: string;
+  types: Array<{
+    type: {
+      name: string,
+      url: string,
+    }
+  }>;
 }

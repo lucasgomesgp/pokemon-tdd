@@ -24,7 +24,7 @@ export default {
         "ghost": "#705898",
         "dark": "#705848",
         "dragon": "#7038F8",
-        "steel": "#FFFFFF",
+        "steel": "#777575",
         "fairy": "#F0B6BC",
       }
     },

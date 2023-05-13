@@ -1,9 +1,7 @@
 import clsx from "clsx";
 
-export function getColorOfIdPokemon(type: string, toggleClickFlex: boolean) {
-  return clsx("absolute top-2 text-2xl font-bold", {
-    "left-4": toggleClickFlex === false,
-    "left-2 text-4xl top-4": toggleClickFlex,
+export function getColorOfIdPokemon(type: string) {
+  return clsx("absolute left-2 top-2 text-2xl font-bold", {
     "text-normal": type == "normal",
     "text-fire": type == "fire",
     "text-water": type == "water",
