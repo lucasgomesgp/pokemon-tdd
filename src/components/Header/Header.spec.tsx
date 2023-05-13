@@ -6,7 +6,8 @@ import "@testing-library/jest-dom";
 
 describe("Header component", () => {
   it("Should be able to show image with icon of PokeDex", async () => {
-    const { getByAltText } = render(<Header />);
+    const handleFilter = vi.fn();
+    const { getByAltText } = render(<Header handleFilterPokemons={handleFilter}/>);
     const image = getByAltText("PokeAPI logo") as HTMLImageElement;
     const src = "/logo.svg";
 
@@ -14,7 +15,8 @@ describe("Header component", () => {
   });
 
   it("Should be able to show input element for show specific Pokemons", async () => {
-    const { getByPlaceholderText } = render(<Header />);
+    const handleFilter = vi.fn();
+    const { getByPlaceholderText } = render(<Header handleFilterPokemons={handleFilter} />);
     const inputElement = getByPlaceholderText("Ex:. Pikachu, Bulbasaur");
 
     userEvent.type(inputElement, "Pikachu");

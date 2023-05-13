@@ -24,15 +24,27 @@ export default {
         "ghost": "#705898",
         "dark": "#705848",
         "dragon": "#7038F8",
-        "steel": "#FFFFFF",
+        "steel": "#777575",
         "fairy": "#F0B6BC",
-
       }
     },
     fontFamily:{
       "poppins": ["Poppins", "sans-serif"],
       "roboto": ["Roboto", "sans-serif"],
       "montserrat": ["Montserrat", "sans-serif"],
+    },
+    keyframes:{
+      changeOpacity:{
+        "0%": {
+          opacity: 0
+        },
+        "100%":{
+          opacity: "100%"
+        }
+      }
+    },
+    animation:{
+      "opacity": "changeOpacity 2s linear",
     }
   },
   plugins: [],
