@@ -5,7 +5,7 @@ import { Card } from "./components/Card";
 import clsx from "clsx";
 
 function App() {
-  const [limit, setLimit] = useState(110);
+  const [limit, ] = useState(110);
   const [pokemons, setPokemons] = useState<PokemonInfo[]>([]);
   const [pokemonsCopy, setPokemonsCopy] = useState<PokemonInfo[]>([]);
   const [notFound, setNotFound] = useState(false);

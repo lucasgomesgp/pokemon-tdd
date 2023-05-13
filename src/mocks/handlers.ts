@@ -3,7 +3,7 @@ import { rest } from "msw";
 export const handlers = [
   rest.get(
     "https://pokeapi.co/api/v2/pokemon",
-    (req, res, ctx) => {
+    (_, res, ctx) => {
       return res(
         ctx.status(200),
         ctx.json({
@@ -213,7 +213,7 @@ export const handlers = [
       );
     }
   ),
-  rest.get("https://pokeapi.co/api/v2/pokemon/1", (req, res, ctx) => {
+  rest.get("https://pokeapi.co/api/v2/pokemon/1", (_, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json({
