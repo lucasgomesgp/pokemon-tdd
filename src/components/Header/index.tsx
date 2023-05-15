@@ -11,7 +11,7 @@ export function Header({ handleFilterPokemons }: HeaderProps) {
   }, [pokemon]);
   return (
     <header className="flex justify-between items-center py-2 px-4 bg-red-600">
-      <img src="./public/logo.svg" alt="PokeAPI logo" className="max-w-[10rem]" />
+      <img src="/logo.svg" alt="PokeAPI logo" className="max-w-[10rem]" />
       <div className="flex gap-2">
         <div className="relative">
           <input
