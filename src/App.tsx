@@ -5,16 +5,18 @@ import { Card } from "./components/Card";
 import clsx from "clsx";
 
 function App() {
-  const [limit, ] = useState(110);
+  const [limit] = useState(110);
   const [pokemons, setPokemons] = useState<PokemonInfo[]>([]);
   const [pokemonsCopy, setPokemonsCopy] = useState<PokemonInfo[]>([]);
   const [notFound, setNotFound] = useState(false);
   const [numberPageChecked, setNumberPageChecked] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const pagination = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-  
+
   async function getAllPokemons(limit: number, offset: number) {
     try {
+      setNotFound(false);
+      setIsLoading(true);
       const baseURL = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
       const result = await fetch(baseURL);
       const pokemons = (await result.json()) as InfoPokemons;
@@ -93,7 +95,7 @@ function App() {
               />
             );
           })}
-          {notFound && pokemons.length === 0 && (
+          {notFound && !isLoading && pokemons.length === 0 && (
             <div className="flex flex-col items-center justify-center w-full">
               <p>Infelizmente seu Pokemon não foi encontrado</p>
               <img
