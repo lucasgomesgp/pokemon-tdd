@@ -90,7 +90,7 @@ export function Card({ id, title, types, url }: CardProps) {
           {types.map(({ type }) => (
             <img
               key={type.name + type.url}
-              src={`src/assets/icons/${type.name}.svg`}
+              src={`./src/assets/icons/${type.name}.svg`}
               alt={type.name}
               className={getColorOfType(type.name)}
             />
