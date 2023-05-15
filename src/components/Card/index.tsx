@@ -16,7 +16,7 @@ export function Card({ id, title, types, url }: CardProps) {
         className={"flex rounded-full p-2 mb-2 mt-4 relative max-w-20 max-h-40"}
       >
         <img
-          src={url || "./public/icon.png"}
+          src={url || "/icon.png"}
           alt={title}
           key={title}
           className="mt-4 w-30 h-28 p-2"
@@ -90,7 +90,7 @@ export function Card({ id, title, types, url }: CardProps) {
           {types.map(({ type }) => (
             <img
               key={type.name + type.url}
-              src={`./src/assets/icons/${type.name}.svg`}
+              src={`/assets/icons/${type.name}.svg`}
               alt={type.name}
               className={getColorOfType(type.name)}
             />
