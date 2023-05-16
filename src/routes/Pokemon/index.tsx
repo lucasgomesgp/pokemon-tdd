@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { Header } from "../../components/Header";
+import { Link, useParams} from "react-router-dom";
 import { PokemonInfo } from "../../types/PokemonInfo";
 import { getColorOfType } from "../../utils/get-color-of-type";
 import { InfoArea } from "../../components/InfoArea";
@@ -29,12 +28,11 @@ export function Pokemon() {
             <p className="font-bold capitalize text-3xl">{pokemon?.name}</p>
             <div className="flex gap-2">
               {pokemon?.types.map(({ type }) => (
-                <div className={getColorOfType(type.name, true)}>
-                  <img
-                    key={type.name + type.url}
-                    src={`/assets/icons/${type.name}.svg`}
-                    alt={type.name}
-                  />
+                <div
+                  className={getColorOfType(type.name, true)}
+                  key={type.name + type.url}
+                >
+                  <img src={`/assets/icons/${type.name}.svg`} alt={type.name} />
                   <p>{type.name}</p>
                 </div>
               ))}
@@ -59,10 +57,12 @@ export function Pokemon() {
       ) : (
         <div className="flex flex-col gap-4 items-center justify-center mt-20">
           <p>Pokemon não encontrado :(</p>
-          <img src="/pikachu.gif" alt="Pikachu"  className="w-20 h-20"/>
+          <img src="/pikachu.gif" alt="Pikachu" className="w-20 h-20" />
           <p className="font-bold">
             Para voltar a página dos Pokemóns
-            <Link to="/" className="ml-2 text-blue-500">clique aqui!</Link>
+            <Link to="/" className="ml-2 text-blue-500" data-testid="back-home">
+              clique aqui!
+            </Link>
           </p>
         </div>
       )}

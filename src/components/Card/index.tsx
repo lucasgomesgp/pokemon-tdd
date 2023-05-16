@@ -2,7 +2,7 @@ import { getColorOfIdPokemon } from "../../utils/get-color-of-id-pokemon";
 import { getColorOfPokemonCircle } from "../../utils/get-color-of-pokemon-circle";
 import { CardProps } from "./types";
 import { getColorOfType } from "../../utils/get-color-of-type";
-import { Link } from "react-router-dom";
+import {  Link } from "react-router-dom";
 
 export function Card({ id, title, types, url }: CardProps) {
   return (
@@ -12,6 +12,7 @@ export function Card({ id, title, types, url }: CardProps) {
       }
       key={url}
       to={`/pokemon/${id}`}
+      data-testid="link"
     >
       <p className={getColorOfIdPokemon(types[0].type.name)}>#{id}</p>
       <div

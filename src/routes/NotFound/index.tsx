@@ -7,7 +7,7 @@ export function NotFound() {
       <img className="max-w-md" src="/empty.svg" alt="Página não encontrada" />
       <p className="font-bold">
         Para voltar para página inicial{" "}
-        <Link to="/" className="text-blue-950">
+        <Link to="/" className="text-blue-950" data-testid="link-back">
           clique aqui
         </Link>
       </p>
