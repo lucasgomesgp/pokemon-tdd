@@ -1,9 +1,7 @@
 import clsx from "clsx";
 
-export function getColorOfProgressbar(fillNumber: number, type: string) {
-  const fillBackground = `w-[${fillNumber}%]`;
-  console.log(fillBackground)
-  return clsx(`h-[100%] rounded-xl transition-all ${fillBackground}`, {
+export function getColorOfProgressbar(type: string) {
+  return clsx(`h-[100%] rounded-xl transition-all`, {
     "bg-normal": type == "normal",
     "bg-fire": type == "fire",
     "bg-water": type == "water",
