@@ -10,18 +10,24 @@ export interface PokemonInfo {
   name: string;
   sprites: {
     front_default: string;
+    front_shiny: string;
+    other: {
+      home: {
+        front_default: string;
+      };
+    };
   };
   types: Array<{
     type: {
-      name: string,
-      url: string,
-    }
+      name: string;
+      url: string;
+    };
   }>;
-  stats:Array<{
-    base_stat: number,
-    stat:{
-      name: string,
-    }
+  stats: Array<{
+    base_stat: number;
+    stat: {
+      name: string;
+    };
   }>;
   weight: number;
 }

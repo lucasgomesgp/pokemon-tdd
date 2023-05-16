@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Header } from "./components/Header";
-import { InfoPokemons, PokemonInfo } from "./types";
+import { InfoPokemons, PokemonInfo } from "./types/PokemonInfo";
 import { Card } from "./components/Card";
 import clsx from "clsx";
 
@@ -91,7 +91,7 @@ function App() {
                 key={name + "," + sprites.front_default}
                 title={name}
                 types={types}
-                url={sprites.front_default}
+                url={sprites.other.home.front_default}
               />
             );
           })}

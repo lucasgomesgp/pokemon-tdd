@@ -2,14 +2,17 @@ import { getColorOfIdPokemon } from "../../utils/get-color-of-id-pokemon";
 import { getColorOfPokemonCircle } from "../../utils/get-color-of-pokemon-circle";
 import { CardProps } from "./types";
 import { getColorOfType } from "../../utils/get-color-of-type";
+import {  Link } from "react-router-dom";
 
 export function Card({ id, title, types, url }: CardProps) {
   return (
-    <button
+    <Link
       className={
         "flex w-[250px] bg-white flex-col shadow-lg relative px-2 py-5 items-center justify-center rounded-2xl border-2 hover:opacity-80 cursor-pointer transition-all animate-opacity"
       }
       key={url}
+      to={`/pokemon/${id}`}
+      data-testid="link"
     >
       <p className={getColorOfIdPokemon(types[0].type.name)}>#{id}</p>
       <div
@@ -29,7 +32,7 @@ export function Card({ id, title, types, url }: CardProps) {
             viewBox="0 0 159 182"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="absolute top-0 -left-8 h-36"
+            className="absolute top-2 -left-8 h-36"
           >
             <g filter="url(#filter0_i_102_754)">
               <path
@@ -97,6 +100,6 @@ export function Card({ id, title, types, url }: CardProps) {
           ))}
         </div>
       </div>
-    </button>
+    </Link>
   );
 }
