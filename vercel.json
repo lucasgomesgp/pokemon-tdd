@@ -1,5 +1,5 @@
 {
     "rewrites":  [
-      {"source": "/pokemon/(.*)", "destination": "/pokemon/:id"}
+      {"source": "/pokemon/(.*)", "destination": "/"}
     ]
   }

@@ -1,22 +1,43 @@
-import { MagnifyingGlass } from "@phosphor-icons/react";
+import { List, MagnifyingGlass } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import { HeaderProps } from "./types";
 import { Link } from "react-router-dom";
 
-export function Header({
-  handleFilterPokemons,
-}: HeaderProps) {
+export function Header({ handleFilterPokemons }: HeaderProps) {
   const [pokemon, setPokemon] = useState("");
+  const [menuIsOpen, setMenuIsOpen] = useState(true);
 
+  function changeInputShowing() {
+    const width = window.innerWidth;
+    if (width > 600) {
+      setMenuIsOpen(true);
+    } else {
+      setMenuIsOpen(false);
+    }
+  }
+  window.addEventListener("resize", changeInputShowing);
+  
   useEffect(() => {
-      handleFilterPokemons(pokemon);
+    handleFilterPokemons(pokemon);
+    changeInputShowing();
   }, [pokemon]);
   return (
-    <header className="flex justify-between items-center py-2 px-4 bg-red-600">
-      <Link to="/">
-        <img src="/logo.svg" alt="PokeAPI logo" className="max-w-[10rem]" />
-      </Link>
-        <div className="flex gap-2">
+    <header className="flex  max-[600px]:flex-col max-[600px]:gap-5 justify-between items-center py-2 px-4 bg-red-600">
+      <div className="flex justify-between max-[600px]:w-full">
+        <Link to="/">
+          <img src="/logo.svg" alt="PokeAPI logo" className="max-w-[10rem]" />
+        </Link>
+        <button
+          className="hidden max-[600px]:inline"
+          onClick={() => {
+            setMenuIsOpen(!menuIsOpen);
+          }}
+        >
+          <List size={32} color="white" />
+        </button>
+      </div>
+      {menuIsOpen && (
+        <div className="flex flex-wrap max-sm:justify-center gap-2 max-[600px]:pb-2">
           <div className="relative">
             <input
               type="text"
@@ -42,6 +63,7 @@ export function Header({
             Search
           </button>
         </div>
+      )}
     </header>
   );
 }
