@@ -2,10 +2,15 @@
     <img src="./public/logo.svg" >
 </div>
 
-<h3 align="center">PokeDex</h3>
-
+---
 ## :books: Descrição
 Essa aplicação apresenta todos os Pokemons e suas características, como força e velocidade. Dessa forma, foi desenvolvida utilizando a metodologia do TDD, onde os testes unitários foram desenvolvidos e os componentes da aplicação foram desenvolvidos com base nesses testes.
+
+---
+## :camera: Funcionamento
+<div align="center">
+    <img src="./README/pokemon.gif" >
+</div>
 
 ---
 ## :art: Layout dos cards
@@ -18,10 +23,13 @@ Essa aplicação apresenta todos os Pokemons e suas características, como forç
 - [Tailwind](https://tailwindcss.com/)
 
 ---
-## :camera: GIF da aplicação
-
-
+## :notebook_with_decorative_cover: Features
+- [x] Paginação
+- [x] Filtragem de Pokemon
+- [x] Responsividade
+- [x] Comunicação com a [PokeAPI](https://pokeapi.co/)
 ---
+
 ## :desktop_computer: Como usar
 - Depois de baixar o projeto, rodar o comando:
 ```
