@@ -29,6 +29,9 @@ function App() {
       setPokemons(allPokemons);
       setPokemonsCopy(allPokemons);
       setIsLoading(false);
+      if (allPokemons.length === 0) {
+        setNotFound(true);
+      }
     } catch (error) {
       console.log("Erro na busca dos pokemons");
     }
@@ -58,7 +61,7 @@ function App() {
   return (
     <div className="min-h-screen max-w-full bg-background-home">
       <Header handleFilterPokemons={filterPokemons} />
-      <div className="flex flex-wrap items-center justify-end gap-1 mt-2 px-4 ">
+      <div className="flex flex-wrap items-center max-sm:justify-center justify-end gap-1 mt-2 px-4 ">
         {pagination.map((page) => (
           <button
             className={clsx(
@@ -95,7 +98,7 @@ function App() {
               />
             );
           })}
-          {notFound && !isLoading && pokemons.length === 0 && (
+          {notFound && pokemons.length === 0 && (
             <div className="flex flex-col items-center justify-center w-full">
               <p>Infelizmente seu Pokemon não foi encontrado</p>
               <img

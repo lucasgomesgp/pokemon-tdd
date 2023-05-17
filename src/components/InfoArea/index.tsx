@@ -20,7 +20,7 @@ export function InfoArea({
       </p>
       <div className="border-2 w-60 h-8 bg-gray-300 rounded-xl relative font-poppins">
         <div className={getColorOfProgressbar(type)} style={{width: `${fillColorOfDiv}%`}}>
-          <p className="text-white  font-bold absolute ml-0 mr-0 left-[40%]">
+          <p className="text-slate-900  font-bold absolute ml-0 mr-0 left-[40%]">
             {fillingNumberOfBorder > 100 ? 100 : fillingNumberOfBorder}%
           </p>
         </div>
