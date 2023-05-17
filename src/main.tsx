@@ -5,6 +5,8 @@ import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Pokemon } from "./routes/Pokemon/index.tsx";
 import { NotFound } from "./routes/NotFound/index.tsx";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +25,7 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
+    <ToastContainer />
     <RouterProvider router={router} />
   </React.StrictMode>
 );

@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link, useParams} from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { PokemonInfo } from "../../types/PokemonInfo";
 import { getColorOfType } from "../../utils/get-color-of-type";
 import { InfoArea } from "../../components/InfoArea";
 import { HeaderSecondary } from "../../components/HeaderSecondary";
+import { toast } from "react-toastify";
 
 export function Pokemon() {
   const params = useParams();
@@ -14,6 +15,19 @@ export function Pokemon() {
     const data = await fetch(baseURL);
     const pokemon = await data.json();
     setPokemon(pokemon);
+    if (!pokemon?.sprites.other.home.front_default) {
+      toast.error("Esse Pokemon não tem imagem no nosso banco de dados!", {
+        toastId:"error-pokemon",
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
   }
 
   useEffect(() => {
@@ -39,7 +53,7 @@ export function Pokemon() {
             </div>
           </div>
           <img
-            src={pokemon?.sprites.other.home.front_default}
+            src={pokemon?.sprites.other.home.front_default || "/icon.png"}
             alt={pokemon?.name}
             className="w-72 h-72 object-cover"
           />
