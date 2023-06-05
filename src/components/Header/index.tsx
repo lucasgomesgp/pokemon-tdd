@@ -43,7 +43,7 @@ export function Header({ handleFilterPokemons }: HeaderProps) {
               type="text"
               placeholder="Ex:. Pikachu, Bulbasaur"
               value={pokemon}
-              className="p-2 px-8 outline-none rounded-sm font-poppins w-64"
+              className="p-2 px-8 outline-none rounded-sm font-poppins w-64 capitalize"
               onChange={(event) => {
                 setPokemon(event.target.value);
               }}
