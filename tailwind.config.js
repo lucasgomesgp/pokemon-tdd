@@ -41,10 +41,19 @@ export default {
         "100%":{
           opacity: "100%"
         }
+      },
+      spin:{
+        "0%": {
+          transform: "rotate(0deg)",
+        },
+        "100%":{
+          transform: "rotate(360deg)"
+        }
       }
     },
     animation:{
       "opacity": "changeOpacity 2s linear",
+      "rotate": "spin 700ms linear infinite",
     }
   },
   plugins: [],

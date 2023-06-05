@@ -1,63 +1,42 @@
 import { useEffect, useState } from "react";
 import { Header } from "./components/Header";
-import { InfoPokemons, PokemonInfo } from "./types/PokemonInfo";
+import { PokemonInfo } from "./types/PokemonInfo";
 import { Card } from "./components/Card";
 import clsx from "clsx";
+import { getAllPokemons } from "./api/get-all-pokemons";
+import { useQuery } from "@tanstack/react-query";
 
 function App() {
   const [limit] = useState(110);
-  const [pokemons, setPokemons] = useState<PokemonInfo[]>([]);
-  const [pokemonsCopy, setPokemonsCopy] = useState<PokemonInfo[]>([]);
-  const [notFound, setNotFound] = useState(false);
+  const [offset, setOffset] = useState(0);
   const [numberPageChecked, setNumberPageChecked] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
-  const pagination = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  const pagination = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+  const [pokemons, setPokemons] = useState<PokemonInfo[] | undefined>([]);
 
-  async function getAllPokemons(limit: number, offset: number) {
-    try {
-      setNotFound(false);
-      setIsLoading(true);
-      const baseURL = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
-      const result = await fetch(baseURL);
-      const pokemons = (await result.json()) as InfoPokemons;
-      const allInfoOfEachPokemon = pokemons.results.map(async (pokemon) => {
-        const data = await fetch(pokemon.url);
-        const response = await data.json();
-        return response;
-      });
-      const allPokemons = await Promise.all(allInfoOfEachPokemon);
-      setPokemons(allPokemons);
-      setPokemonsCopy(allPokemons);
-      setIsLoading(false);
-      if (allPokemons.length === 0) {
-        setNotFound(true);
-      }
-    } catch (error) {
-      console.log("Erro na busca dos pokemons");
-    }
-  }
+  const { data, isLoading, isError, refetch } = useQuery<
+    PokemonInfo[] | undefined
+  >({
+    queryKey: ["pokemons-list"],
+    queryFn: () => getAllPokemons(limit, offset),
+  });
 
   function filterPokemons(value: string) {
-    setIsLoading(true);
     const nameInLowerCase = value.toLowerCase();
-    const allPokemons = pokemons.filter((pokemon) =>
+    const allPokemons = data?.filter((pokemon) =>
       pokemon.name.includes(nameInLowerCase)
     );
-    setPokemons(allPokemons);
-    setIsLoading(false);
-    if (allPokemons.length === 0) {
-      setNotFound(true);
+    if (allPokemons) {
+      setPokemons(allPokemons);
     }
     if (value === "") {
-      setPokemons(pokemonsCopy);
+      setPokemons(data);
     }
   }
 
   useEffect(() => {
-    setNumberPageChecked(1);
-    getAllPokemons(limit, 0);
-  }, [limit]);
-
+    refetch();
+    setPokemons(data);
+  }, [data, numberPageChecked, refetch]);
   return (
     <div className="min-h-screen max-w-full bg-background-home">
       <Header handleFilterPokemons={filterPokemons} />
@@ -72,22 +51,18 @@ function App() {
             )}
             key={page}
             onClick={() => {
-              const offtet = page === 1 ? 0 : limit * page;
-              getAllPokemons(limit, offtet);
+              const newOffset = page === 1 ? 0 : limit * page;
               setNumberPageChecked(page);
+              setOffset(newOffset);
             }}
           >
             {page}
           </button>
         ))}
       </div>
-      {isLoading ? (
-        <p className="flex items-center justify-center font-bold">
-          Carregando...
-        </p>
-      ) : (
-        <div className="flex flex-wrap items-start justify-center gap-8 p-8 animate-opacity">
-          {pokemons.map(({ id, name, sprites, types }) => {
+      <div className="flex flex-wrap items-start justify-center gap-8 p-8 animate-opacity">
+        {pokemons?.length !== 0 &&
+          pokemons?.map(({ id, name, sprites, types }) => {
             return (
               <Card
                 id={id}
@@ -98,17 +73,20 @@ function App() {
               />
             );
           })}
-          {notFound && pokemons.length === 0 && (
+        {isError ||
+          (data?.length === 0 && (
             <div className="flex flex-col items-center justify-center w-full">
-              <p>Infelizmente seu Pokemon não foi encontrado</p>
+              <p>Erro ao buscar seu Pokémon :(</p>
               <img
                 src="/empty.svg"
                 alt="Empty data"
                 className="max-w-[60%] mt-2"
               />
             </div>
-          )}
-        </div>
+          ))}
+      </div>
+      {isLoading && (
+        <div className="m-auto w-20 h-20 rounded-full border-[0.5rem] border-gray-300 border-t-red-600 animate-rotate" />
       )}
     </div>
   );
