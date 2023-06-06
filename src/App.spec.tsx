@@ -1,16 +1,13 @@
 import { describe, expect, it } from "vitest";
 import App from "./App";
-import { render, screen, waitFor } from "@testing-library/react";
-import { BrowserRouter } from "react-router-dom";
+import { screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import { render } from "../test/test-utils";
+
 
 describe("App", () => {
   beforeEach(() => {
-    render(
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    );
+    render(<App />);
   });
   it("Should be able to show image of Pokemon", async () => {
     const url =
@@ -26,5 +23,4 @@ describe("App", () => {
       expect(screen.getByText("bulbasaur")).toBeInTheDocument();
     });
   });
- 
 });

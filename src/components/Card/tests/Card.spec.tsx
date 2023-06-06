@@ -1,8 +1,7 @@
 import { beforeEach, describe, it } from "vitest";
-import { render, screen } from "@testing-library/react";
-import { Card } from ".";
-import { BrowserRouter } from "react-router-dom";
+import { Card } from "..";
 import "@testing-library/jest-dom";
+import { render, screen } from "../../../../test/test-utils";
 
 describe("Card", () => {
   const pokemon = {
@@ -26,15 +25,13 @@ describe("Card", () => {
   };
   beforeEach(() => {
     render(
-      <BrowserRouter>
-        <Card
-          title={pokemon.title}
-          id={pokemon.id}
-          types={pokemon.types}
-          url={pokemon.url}
-          key={pokemon.title}
-        />
-      </BrowserRouter>
+          <Card
+            title={pokemon.title}
+            id={pokemon.id}
+            types={pokemon.types}
+            url={pokemon.url}
+            key={pokemon.title}
+          />
     );
   });
   it("Should be able to show title and type of Pokemons", () => {
@@ -47,6 +44,6 @@ describe("Card", () => {
 
   it("Should be able to redirect after click on card", () => {
     const linkElement = screen.getByTestId("link");
-    expect(linkElement).toHaveAttribute("href",`/pokemon/${pokemon.id}`);
+    expect(linkElement).toHaveAttribute("href", `/pokemon/${pokemon.id}`);
   });
 });
