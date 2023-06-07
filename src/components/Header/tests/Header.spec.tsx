@@ -1,17 +1,14 @@
 import { describe, it, vi } from "vitest";
-import { Header } from ".";
-import { render, waitFor } from "@testing-library/react";
+import { Header } from "..";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
-import { BrowserRouter } from "react-router-dom";
+import { render, waitFor } from "../../../../test/test-utils";
 
 describe("Header component", () => {
   it("Should be able to show image with icon of PokeDex", async () => {
     const handleFilter = vi.fn();
     const { getByAltText } = render(
-      <BrowserRouter>
-        <Header handleFilterPokemons={handleFilter} />
-      </BrowserRouter>
+          <Header handleFilterPokemons={handleFilter} />
     );
     const image = getByAltText("PokeAPI logo") as HTMLImageElement;
     const src = "/logo.svg";
@@ -22,9 +19,7 @@ describe("Header component", () => {
   it("Should be able to show input element for show specific Pokemons", async () => {
     const handleFilter = vi.fn();
     const { getByPlaceholderText } = render(
-      <BrowserRouter>
-        <Header handleFilterPokemons={handleFilter} />
-      </BrowserRouter>
+          <Header handleFilterPokemons={handleFilter} />
     );
     const inputElement = getByPlaceholderText("Ex:. Pikachu, Bulbasaur");
 
@@ -42,9 +37,7 @@ describe("Header component", () => {
   it("Should be able to function of search Pokemon works", async () => {
     const handleFilter = vi.fn();
     const { getByText, getByPlaceholderText } = render(
-      <BrowserRouter>
-        <Header handleFilterPokemons={handleFilter} />
-      </BrowserRouter>
+          <Header handleFilterPokemons={handleFilter} />
     );
     const inputElement = getByPlaceholderText("Ex:. Pikachu, Bulbasaur");
     const buttonElement = getByText("Search");

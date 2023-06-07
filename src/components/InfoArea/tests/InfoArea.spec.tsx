@@ -1,7 +1,7 @@
 import { describe, it } from "vitest";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { InfoArea } from ".";
+import { InfoArea } from "..";
 
 describe("InfoArea", () => {
   it("Should be able to show title", () => {

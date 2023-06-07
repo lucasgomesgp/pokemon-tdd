@@ -1,10 +1,11 @@
 import { toast } from "react-toastify";
 import { InfoPokemons, PokemonInfo } from "../types/PokemonInfo";
+import { baseURL } from "../utils/base-url";
 
 export async function getAllPokemons(limit: number, offset: number): Promise<PokemonInfo[] | undefined> {
     try {
-      const baseURL = `https://pokeapi.co/api/v2/pokemon?limit=${limit ?? 110}&offset=${offset ?? 0}`;
-      const result = await fetch(baseURL);
+      const url = `${baseURL}/pokemon?limit=${limit ?? 110}&offset=${offset ?? 0}`;
+      const result = await fetch(url);
       const pokemons = (await result.json()) as InfoPokemons;
       const allInfoOfEachPokemon = pokemons.results.map(async (pokemon) => {
         const data = await fetch(pokemon.url);
@@ -14,7 +15,7 @@ export async function getAllPokemons(limit: number, offset: number): Promise<Pok
       const allPokemons = await Promise.all(allInfoOfEachPokemon);
       return allPokemons;
     } catch (error) {
-      toast.error('🦄 Ocorreu um erro ao buscar os Pokémons!', {
+      toast.error('Ocorreu um erro ao buscar os Pokémons!', {
         position: "top-right",
         autoClose: 1000,
         hideProgressBar: false,
