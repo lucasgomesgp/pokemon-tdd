@@ -1,4 +1,3 @@
-import { getColorOfIdPokemon } from "../../utils/get-color-of-id-pokemon";
 import { getColorOfPokemonCircle } from "../../utils/get-color-of-pokemon-circle";
 import { CardProps } from "./types";
 import { getColorOfType } from "../../utils/get-color-of-type";
