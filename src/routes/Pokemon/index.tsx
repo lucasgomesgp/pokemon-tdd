@@ -1,47 +1,28 @@
-import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { PokemonInfo } from "../../types/PokemonInfo";
 import { getColorOfType } from "../../utils/get-color-of-type";
 import { InfoArea } from "../../components/InfoArea";
 import { HeaderSecondary } from "../../components/HeaderSecondary";
-import { toast } from "react-toastify";
+import { useQuery } from "@tanstack/react-query";
+import { baseURL } from "../../utils/base-url";
+import { getPokemonChoosed } from "../../services/get-pokemon-choosed";
 
 export function Pokemon() {
   const params = useParams();
-  const baseURL = `https://pokeapi.co/api/v2/pokemon/${params.id}`;
-  const [pokemon, setPokemon] = useState<PokemonInfo>();
+  const { data,isFetched } = useQuery<PokemonInfo>({
+    queryKey: ["pokemon-choosed"],
+    queryFn: () => getPokemonChoosed(`${baseURL}/pokemon/${params.id}`),
+  });
 
-  async function getPokemonChoosed() {
-    const data = await fetch(baseURL);
-    const pokemon = await data.json();
-    setPokemon(pokemon);
-    if (!pokemon?.sprites.other.home.front_default) {
-      toast.error("Esse Pokemon não tem imagem no nosso banco de dados!", {
-        toastId:"error-pokemon",
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
-    }
-  }
-
-  useEffect(() => {
-    getPokemonChoosed();
-  }, []);
   return (
     <>
       <HeaderSecondary />
-      {pokemon?.name ? (
+      {data?.name && isFetched ? (
         <div className="flex flex-wrap items-center justify-center gap-10  w-full mt-10">
           <div className="flex flex-col items-center gap-2">
-            <p className="font-bold capitalize text-3xl">{pokemon?.name}</p>
+            <p className="font-bold capitalize text-3xl">{data?.name}</p>
             <div className="flex gap-2">
-              {pokemon?.types.map(({ type }) => (
+              {data?.types.map(({ type }) => (
                 <div
                   className={getColorOfType(type.name, true)}
                   key={type.name + type.url}
@@ -53,16 +34,16 @@ export function Pokemon() {
             </div>
           </div>
           <img
-            src={pokemon?.sprites.other.home.front_default || "/icon.png"}
-            alt={pokemon?.name}
+            src={data?.sprites.other.home.front_default || "/icon.png"}
+            alt={data?.name}
             className="w-72 h-72 object-cover"
           />
           <div className="flex flex-col gap-4">
-            {pokemon?.stats.map(({ stat, base_stat }) => (
+            {data?.stats.map(({ stat, base_stat }) => (
               <InfoArea
                 title={stat.name}
                 fillingNumberOfBorder={base_stat}
-                type={pokemon.types[0].type.name}
+                type={data.types[0].type.name}
                 key={stat.name}
               />
             ))}

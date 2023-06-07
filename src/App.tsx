@@ -3,8 +3,9 @@ import { Header } from "./components/Header";
 import { PokemonInfo } from "./types/PokemonInfo";
 import { Card } from "./components/Card";
 import clsx from "clsx";
-import { getAllPokemons } from "./api/get-all-pokemons";
+import { getAllPokemons } from "./services/get-all-pokemons";
 import { useQuery } from "@tanstack/react-query";
+import {v4 as uuid} from "uuid";
 
 function App() {
   const [limit] = useState(110);
@@ -66,7 +67,7 @@ function App() {
             return (
               <Card
                 id={id}
-                key={name + "," + sprites.front_default}
+                key={uuid()}
                 title={name}
                 types={types}
                 url={sprites.other.home.front_default}
@@ -86,7 +87,10 @@ function App() {
           ))}
       </div>
       {isLoading && (
-        <div className="m-auto w-20 h-20 rounded-full border-[0.5rem] border-gray-300 border-t-red-600 animate-rotate" />
+        <div
+          className="m-auto w-20 h-20 rounded-full border-[0.5rem] border-gray-300 border-t-red-600 animate-rotate"
+          data-testid="loading"
+        />
       )}
     </div>
   );
